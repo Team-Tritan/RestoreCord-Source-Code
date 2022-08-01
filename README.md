@@ -1,11 +1,8 @@
-# RestoreCord-Source-Code
-<a href="https://discord.gg/letoa">
-        <img src="https://img.shields.io/discord/983253635871952927?logo=discord"
-            alt="Letoa Backups Discord"></a>
-<a href="https://letoa.me">
-        <img src="https://img.shields.io/badge/website-000000?style=for-the-badge&logo=About.me&logoColor=white"
-            alt="Letoa Backups Website"></a>
+# RestoreCord Source Code
 
+The GitHub repository and the YouTube video are finally back up after xenos' fraudulent DMCA and blackmail towards me (proof: https://imgur.com/a/HEopxtG) 🎉
+
+### Tutorial video how to host for 100% free forever: https://www.youtube.com/watch?v=804Fzc5j4vo
 
 Source code for the member backup bot RestoreCord, found at restorecord.com
 
@@ -15,17 +12,21 @@ Source code for the member backup bot RestoreCord, found at restorecord.com
 
 The license allows you to use this source code and sell it, meaning you can create a competitor to RestoreCord if you wanted to. The only requirement is that you open-source your version of the code. If you do not do that, your website will be taken down for copyright infringement. Pretty simple license, I feel it's more than fair that you contribute back to the community given that I've contributed back the community.
 
+ Do note, however, that **absolutely nobody** aside from myself has legal rights to use my logo for RestoreCord, or repost videos I've recorded for RestoreCord. If you do not follow this, you will recieve a copyright takedown. 
+
 ## Reasoning:
 
 *RestoreCord, the John Deere of restore bots (John Deere doesn't allow anyone to work on the tractor they paid thousands for. They make the firmware super hard to reverse, you must know computer hacking to work on your own tractor).*
 
 *RestoreCord is evidently scared of competiton and therefore tries to monopolize the restore bot market. they know they can't innovate so they attack others. Their developer has been caught DDoSing Letoa, proof: https://www.youtube.com/watch?v=HOnlI5FoWJ8 The developer was fine when I shared source with xenos, though when I open-sourced the code I paid for, he launched a lengthy DDoS attack to Letoa which has been going on and off for hours now. I signed no contract with him, I agreed to no ToS saying I couldn't share the code. He's just ignorant and thinks I'm going to cave into his harassment he tries on everyone else.*
 
-Since January 2022 I've no longer been selling member restore bots. I founded RestoreCord in 2020 and sold it then. Unfortunately, I sold it to an individual who goes by the monikers "xenos" or "ytmcgamer". It was later revealed this individual has token logged people. Video of him admitting it: https://www.youtube.com/watch?v=8dVNMcUR00A
+Also, the RestoreCord developer keeps bitching me making public a source code I paid for wherein he never made me agree to a ToS or anything saying I couldn't distribute the source I bought among others. However, when I gave him access to my VPS for him to setup his source, he without my permission stole all my website files (he never worked on my website or was asked to - he has no business doing so and did this far before he was mad at me) and made a private GitHub repository for them. And then a few days ago when I created this GitHub repository, he made that private GitHub repository public, leaking several of my credentials. 10/10 ethical developer would highly recommend 🤡, proof: https://allmylinks.com/nebula-ethics (if you don't see the leaked credential right away, scroll down on the page and the line is highlighted in yellow)
+
+Since January 2022 I've no longer been selling member restore bots. I founded RestoreCord in 2020 and sold it then. Unfortunately, I sold it to an individual who goes by the monikers "xenos" or "ytmcgamer". It was later revealed this individual has token logged people. Video of him admitting it: https://www.youtube.com/watch?v=8dVNMcUR00A. Additionally, here's evidence of him selling Discord phishing software only a few months ago https://www.youtube.com/watch?v=idho403wdLg
 
 He claimed he did it 2 years ago, though there was an incident where he Mass DM spammed the Discord server of a competitor restore bot service named Guild Restore. The developer for Guild Restore, Gannicus, showed a screenshot from a user where the user said his account was hacked.
 
-He also just scammed me for $10 server boosts. They were suppsosed to be until August and he scammed me because I released this source, despite having full rights to and not ever promising him I wouldn't release it, proof: https://www.youtube.com/watch?v=VrGNffMNX0k
+He also just scammed me for $10 server boosts. They were suppsosed to be until August and he scammed me because I released this source, despite having full rights to and not ever promising him I wouldn't release it, proof: https://www.youtube.com/watch?v=VrGNffMNX0k. He denies ever being paid for the boosts however I made a scam report and provided evidence of me paying him plus him inviting the boost bots, and he was banned https://cracked.io/Thread-Scammed-for-10-by-RestoreCord-owner-xenos1337
 
 He also commited credit card fraud against Letoa. imagine being so broke you must fraudulently spend $7, proof: https://imgur.com/a/EQpSIEo
 
@@ -74,27 +75,40 @@ Now for c# part
 - Replace `discordIdHere` with your Discord bot's application ID https://github.com/wnelson03/RestoreCord-Source-Code/blob/eef52c3e87ff59b0b928f58cf8332dfde4060543/bot%20source/RestoreCord/Properties/Resources.resx#L121
 - Replace `botTokenHere` with your Discord bot's token https://github.com/wnelson03/RestoreCord-Source-Code/blob/eef52c3e87ff59b0b928f58cf8332dfde4060543/bot%20source/RestoreCord/Properties/Resources.resx#L139
 
-The developer I paid then compiles it to a linux appimage somehow
-
-Then the developer said run these commands
+Note that this is written for Debian 11. For any other distro this is self explanatory. If you can't figure this out then leave.
 
 ```bash
-dpkg -i packages-microsoft-prod.deb
+wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
-apt-get update && apt-get upgrade -y
-apt-get install dotnet-runtime-5.0 -y
 ```
 
-Then he said make a process like this and enable it and start it with systemctl
+```bash
+sudo apt-get update; \
+  sudo apt-get install -y apt-transport-https && \
+  sudo apt-get update && \
+  sudo apt-get install -y dotnet-sdk-5.0 dotnet-runtime-5.0
+```
+
+For this next part make sure you are in the bot's root directory.
+
+```bash
+dotnet restore
+dotnet build
+```
+
+You now have an executable!
+
+Create a service using systemctl, make sure to replace the paths.
 
 ```
 [Unit]
-Description=Nebula Mods Inc. API Bot
+Description=Nebula Mods Inc. Restorecord
 After=multi-user.target
 [Service]
-WorkingDirectory=/var/nebula-mods-inc/bots/discord/api
-ExecStart=/var/nebula-mods-inc/bots/discord/api/Network-Bot
-SyslogIdentifier=API-Bot
+WorkingDirectory=/path/to/working/directory
+ExecStart=/path/to/bot/executable 
+SyslogIdentifier=Restorecord
 Type=idle
 Restart=always
 RestartSec=15
@@ -102,7 +116,6 @@ RestartPreventExitStatus=0
 [Install]
 WantedBy=multi-user.target
 ```
-I'm not too sure so I'm not being super descriptive maybe. Though I'm sure you can figure out and get it running. Make sure you run it on the same server as the PHP and the MySQL database as that's far quicker.
 
 Once you set this up, the bot should come online and slash commands should work, do `/` and you'll see slash commands
 
